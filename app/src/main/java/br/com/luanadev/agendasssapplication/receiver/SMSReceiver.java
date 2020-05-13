@@ -10,10 +10,6 @@ import android.widget.Toast;
 import br.com.luanadev.agendasssapplication.R;
 import br.com.luanadev.agendasssapplication.dao.AlunoDAO;
 
-
-/**
- * Created by renan on 13/01/16.
- */
 public class SMSReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {

@@ -1,4 +1,4 @@
-package br.com.luanadev.agendasssapplication;
+package br.com.luanadev.agendasssapplication.task;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,12 +7,14 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import br.com.luanadev.agendasssapplication.web.WebClient;
 import br.com.luanadev.agendasssapplication.converter.AlunoConverter;
 import br.com.luanadev.agendasssapplication.dao.AlunoDAO;
 import br.com.luanadev.agendasssapplication.model.Aluno;
 
 
 public class EnviaAlunosTask extends AsyncTask<Void, Void, String> {
+
     private Context context;
     private ProgressDialog dialog;
 

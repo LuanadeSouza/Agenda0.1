@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.io.File;
 
 import br.com.luanadev.agendasssapplication.R;
@@ -32,16 +34,18 @@ public class FormularioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
-
         helper = new FormularioHelper(this);
-
         Intent intent = getIntent();
         intent.getSerializableExtra("aluno");
         if (aluno != null) {
             helper.preencheFormulario(aluno);
         }
 
-        Button botaoFoto = findViewById(R.id.formulario_botao_foto);
+        FloatingActionButton botaoFoto = findViewById(R.id.formulario_botao_foto);
+        botaoFoto(botaoFoto);
+    }
+
+    private void botaoFoto(FloatingActionButton botaoFoto) {
         botaoFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +63,7 @@ public class FormularioActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CODIGO_CAMERA) {
                 helper.carregaImagem(caminhoFoto);
+                super.onActivityResult(requestCode, resultCode, data);
             }
         }
 
@@ -68,7 +73,6 @@ public class FormularioActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_formulario, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -76,8 +80,7 @@ public class FormularioActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_formulario_ok:
-                 aluno = helper.pegaAluno();
-
+                aluno = helper.pegaAluno();
                 AlunoDAO dao = new AlunoDAO(this);
                 if (aluno.getId() != null) {
                     dao.altera(aluno);
@@ -85,13 +88,12 @@ public class FormularioActivity extends AppCompatActivity {
                     dao.insere(aluno);
                 }
                 dao.close();
-
                 Toast.makeText(FormularioActivity.this, "Aluno " + aluno.getNome() + " salvo!", Toast.LENGTH_SHORT).show();
-
                 finish();
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
+
+
 }

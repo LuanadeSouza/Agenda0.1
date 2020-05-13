@@ -8,21 +8,19 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.provider.Browser;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-import br.com.luanadev.agendasssapplication.EnviaAlunosTask;
+import br.com.luanadev.agendasssapplication.task.EnviaAlunosTask;
 import br.com.luanadev.agendasssapplication.R;
 import br.com.luanadev.agendasssapplication.adapter.AlunosAdapter;
 import br.com.luanadev.agendasssapplication.dao.AlunoDAO;
@@ -38,7 +36,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
 
-        listaAlunos = (ListView) findViewById(R.id.lista_alunos);
+        listaAlunos = findViewById(R.id.lista_alunos);
 
         listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -51,7 +49,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
             }
         });
 
-        Button novoAluno = (Button) findViewById(R.id.novo_aluno);
+        FloatingActionButton novoAluno =  findViewById(R.id.novo_aluno);
         novoAluno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

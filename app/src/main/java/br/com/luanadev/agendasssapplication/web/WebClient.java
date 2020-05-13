@@ -1,4 +1,4 @@
-package br.com.luanadev.agendasssapplication;
+package br.com.luanadev.agendasssapplication.web;
 
 import java.io.IOException;
 import java.io.PrintStream;
