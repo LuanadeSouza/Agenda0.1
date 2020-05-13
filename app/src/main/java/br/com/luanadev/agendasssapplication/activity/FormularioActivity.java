@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.io.File;
 
 import br.com.luanadev.agendasssapplication.R;
@@ -25,27 +23,24 @@ import br.com.luanadev.agendasssapplication.model.Aluno;
 
 public class FormularioActivity extends AppCompatActivity {
 
-    private FormularioHelper helper;
-    private Aluno aluno;
     public static final int CODIGO_CAMERA = 567;
+    private FormularioHelper helper;
     private String caminhoFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+
         helper = new FormularioHelper(this);
+
         Intent intent = getIntent();
-        intent.getSerializableExtra("aluno");
+        Aluno aluno = (Aluno) intent.getSerializableExtra("aluno");
         if (aluno != null) {
             helper.preencheFormulario(aluno);
         }
 
-        FloatingActionButton botaoFoto = findViewById(R.id.formulario_botao_foto);
-        botaoFoto(botaoFoto);
-    }
-
-    private void botaoFoto(FloatingActionButton botaoFoto) {
+        Button botaoFoto = (Button) findViewById(R.id.formulario_botao_foto);
         botaoFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,10 +55,10 @@ public class FormularioActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CODIGO_CAMERA) {
                 helper.carregaImagem(caminhoFoto);
-                super.onActivityResult(requestCode, resultCode, data);
             }
         }
 
@@ -73,6 +68,7 @@ public class FormularioActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_formulario, menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -80,7 +76,8 @@ public class FormularioActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_formulario_ok:
-                aluno = helper.pegaAluno();
+                Aluno aluno = helper.pegaAluno();
+
                 AlunoDAO dao = new AlunoDAO(this);
                 if (aluno.getId() != null) {
                     dao.altera(aluno);
@@ -88,12 +85,13 @@ public class FormularioActivity extends AppCompatActivity {
                     dao.insere(aluno);
                 }
                 dao.close();
+
                 Toast.makeText(FormularioActivity.this, "Aluno " + aluno.getNome() + " salvo!", Toast.LENGTH_SHORT).show();
+
                 finish();
                 break;
         }
+
         return super.onOptionsItemSelected(item);
     }
-
-
 }

@@ -29,14 +29,13 @@ import br.com.luanadev.agendasssapplication.model.Aluno;
 public class ListaAlunosActivity extends AppCompatActivity {
 
     private ListView listaAlunos;
-    private Aluno aluno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
 
-        listaAlunos = findViewById(R.id.lista_alunos);
+        listaAlunos = (ListView) findViewById(R.id.lista_alunos);
 
         listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -49,7 +48,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton novoAluno =  findViewById(R.id.novo_aluno);
+        Button novoAluno = (Button) findViewById(R.id.novo_aluno);
         novoAluno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +87,14 @@ public class ListaAlunosActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_enviar_notas:
                 new EnviaAlunosTask(this).execute();
+                break;
+            case R.id.menu_baixar_provas:
+                Intent vaiParaProvas = new Intent(this, ProvasActivity.class);
+                startActivity(vaiParaProvas);
+                break;
+            case R.id.menu_mapa:
+                Intent vaiParaMapa = new Intent(this, MapaActivity.class);
+                startActivity(vaiParaMapa);
                 break;
         }
         return super.onOptionsItemSelected(item);

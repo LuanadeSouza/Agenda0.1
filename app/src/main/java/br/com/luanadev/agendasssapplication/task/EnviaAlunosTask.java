@@ -14,7 +14,6 @@ import br.com.luanadev.agendasssapplication.model.Aluno;
 
 
 public class EnviaAlunosTask extends AsyncTask<Void, Void, String> {
-
     private Context context;
     private ProgressDialog dialog;
 
@@ -47,3 +46,4 @@ public class EnviaAlunosTask extends AsyncTask<Void, Void, String> {
         Toast.makeText(context, resposta, Toast.LENGTH_LONG).show();
     }
 }
+
